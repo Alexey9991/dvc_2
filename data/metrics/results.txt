@@ -2,3 +2,11 @@ k_means train: 0.8571428571428571
 decision_tree train: 1.0
 k_means test: 0.9736842105263158
 decision_tree test: 0.9736842105263158
+k_means train: 0.8660714285714286
+decision_tree train: 1.0
+k_means test: 0.9736842105263158
+decision_tree test: 0.9736842105263158
+k_means train: 0.8660714285714286
+decision_tree train: 1.0
+k_means test: 0.9736842105263158
+decision_tree test: 0.9736842105263158
