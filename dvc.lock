@@ -1,0 +1,75 @@
+schema: '2.0'
+stages:
+  accuracy:
+    cmd: python calculate_accuracy.py
+    deps:
+    - path: data/predictions/decision_tree_test.txt
+      md5: 8a81e2e2efbf1aa82432f19e51ab4141
+      size: 595
+    - path: data/predictions/decision_tree_train.txt
+      md5: 1443927b4e8e926150235b044a92312a
+      size: 1706
+    - path: data/predictions/k_means_test.txt
+      md5: b44d341e473c75519b8e62bd170a3baf
+      size: 596
+    - path: data/predictions/k_means_train.txt
+      md5: d4306af3325248071dcd9b7be1a10b4c
+      size: 1715
+    outs:
+    - path: data/metrics/results.txt
+      md5: 2636ae4191b22fc6d889cbaa1845d335
+      size: 135
+  prepare:
+    cmd: python split_data.py data/dataset/iris.data
+    deps:
+    - path: data/dataset/iris.data
+      md5: 42615765a885ddf54427f12c34a0a070
+      size: 4702
+    - path: split_data.py
+      md5: 908ff9120beac34728ae60d7249ff4c1
+      size: 379
+    outs:
+    - path: data/dataset/iris_test.data
+      md5: 40e5ebcb2963f3e59de0dd5fb9bd1066
+      size: 1202
+    - path: data/dataset/iris_train.data
+      md5: 8ccdd59e28b7abe7e9166a674f8f46f0
+      size: 3498
+  k_means:
+    cmd: python k_means.py
+    deps:
+    - path: data/dataset/iris_test.data
+      md5: 40e5ebcb2963f3e59de0dd5fb9bd1066
+      size: 1202
+    - path: data/dataset/iris_train.data
+      md5: 8ccdd59e28b7abe7e9166a674f8f46f0
+      size: 3498
+    - path: k_means.py
+      md5: 2590e07bcaa4b0ec500f7a7a073ea0c3
+      size: 1063
+    outs:
+    - path: data/predictions/k_means_test.txt
+      md5: b44d341e473c75519b8e62bd170a3baf
+      size: 596
+    - path: data/predictions/k_means_train.txt
+      md5: d4306af3325248071dcd9b7be1a10b4c
+      size: 1715
+  dtree_train:
+    cmd: python decision_tree.py
+    deps:
+    - path: data/dataset/iris_test.data
+      md5: 40e5ebcb2963f3e59de0dd5fb9bd1066
+      size: 1202
+    - path: data/dataset/iris_train.data
+      md5: 8ccdd59e28b7abe7e9166a674f8f46f0
+      size: 3498
+    - path: decision_tree.py
+      md5: d16c0a8044709017ba8f0e29a088547d
+      size: 609
+    outs:
+    - path: data/predictions/decision_tree_test.txt
+      md5: 8a81e2e2efbf1aa82432f19e51ab4141
+      size: 595
+    - path: data/predictions/decision_tree_train.txt
+      md5: 1443927b4e8e926150235b044a92312a
+      size: 1706

@@ -11,5 +11,5 @@ if __name__ == "__main__":
             with open(f"data/predictions/{alg}_{name}.txt", "r") as f:
                 y_pred = [line.rstrip() for line in f]
             acc = accuracy_score(y_true, y_pred)
-            with open(f"data/metrics/results.txt", "a+") as f:
+            with open(f"data/metrics/results.json", "a+") as f:
                 f.write(f"{alg} {name}: {acc}\n")

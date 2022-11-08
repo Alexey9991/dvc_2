@@ -1,0 +1,36 @@
+stages:
+  prepare:
+    cmd: python split_data.py data/dataset/iris.data
+    deps:
+    - data/dataset/iris.data
+    - split_data.py
+    outs:
+    - data/dataset/iris_test.data
+    - data/dataset/iris_train.data
+  dtree_train:
+    cmd: python decision_tree.py
+    deps:
+    - data/dataset/iris_test.data
+    - data/dataset/iris_train.data
+    - decision_tree.py
+    outs:
+    - data/predictions/decision_tree_test.txt
+    - data/predictions/decision_tree_train.txt
+  k_means:
+    cmd: python k_means.py
+    deps:
+    - data/dataset/iris_test.data
+    - data/dataset/iris_train.data
+    - k_means.py
+    outs:
+    - data/predictions/k_means_train.txt
+    - data/predictions/k_means_test.txt
+  accuracy:
+    cmd: python calculate_accuracy.py
+    deps:
+    - data/predictions/decision_tree_train.txt
+    - data/predictions/decision_tree_test.txt
+    - data/predictions/k_means_test.txt
+    - data/predictions/k_means_train.txt
+    outs:
+    - data/metrics/results.txt
